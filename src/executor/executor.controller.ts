@@ -1,8 +1,5 @@
 import { Request, Response } from 'express';
-import extract from 'extract-zip';
 import uuid from 'uuid/v4';
-import Axios from 'axios';
-import fs from 'fs';
 import path from 'path';
 import Git from 'nodegit';
 import { IExecutorStartRequest } from './interfaces';
