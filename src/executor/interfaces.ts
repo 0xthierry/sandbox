@@ -1,6 +1,6 @@
 export interface IExecutorStartRequest {
   source: 'git' | 's3';
-  path: string;
+  origin: string;
   startCommand: string;
   image: 'node:12';
 }
