@@ -1,17 +1,38 @@
 import { Request, Response } from 'express';
 import uuid from 'uuid/v4';
 import path from 'path';
-import Git from 'nodegit';
+import fs from 'fs';
+import ReadableService from '../readable/readable.service';
 import { IExecutorStartRequest } from './interfaces';
+import DockerService from '../docker/docker.service';
+import DockerRepository from '../docker/docker.repository';
 
 export default class ExecutorController {
-  async start(request: Request, response: Response): Promise<Response> {
-    const startRequest: IExecutorStartRequest = request.body;
-    const id = uuid();
-    await Git.Clone.clone(
-      startRequest.path,
-      path.resolve(__dirname, '..', '..', 'tmp', id)
-    );
-    return response.status(201).json({ job: id });
+  async start(request: Request, response: Response): Promise<void> {
+    try {
+      const startRequest: IExecutorStartRequest = request.body;
+      const id = uuid();
+      response.status(201).json({ job: id });
+
+      const readableService = new ReadableService();
+      const dockerRepository = new DockerRepository();
+      const dockerService = new DockerService(dockerRepository);
+      const dst = path.resolve(__dirname, '..', '..', '..', 'tmp', id);
+      await readableService.download(startRequest.path, dst);
+      //   const containerId = await dockerService.createContainer({
+      //     Image: startRequest.image,
+      //     Cmd: ['npm', 'start'],
+      //     WorkingDir: '/usr/src/app',
+      //     Volumes: {
+      //       '/usr/src/app': {},
+      //     },
+      //     HostConfig: {
+      //       AutoRemove: true,
+      //     },
+      //   });
+      //   console.info(containerId);
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

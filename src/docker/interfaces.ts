@@ -2,6 +2,12 @@ export interface IContainerHostConfig {
   CpuShares: number;
   Memory: number;
   AutoRemove: boolean;
+  Mounts: {
+    Target: string;
+    Source: string;
+    Type: 'bind' | 'volume' | 'tmpfs' | 'npipe';
+    ReadOnly: boolean;
+  }[];
 }
 
 export interface IContainerConfig {
@@ -15,7 +21,7 @@ export interface IContainerConfig {
   Volumes: Record<string, {}>;
   WorkingDir: string;
   Entrypoint: string | string[];
-  HostConfig: IContainerHostConfig;
+  HostConfig: Partial<IContainerHostConfig>;
 }
 
 export interface IContainer {
@@ -29,7 +35,7 @@ export interface IContainer {
     FinishedAt: string;
   };
   Name: string;
-  config: IContainerConfig;
+  config: Partial<IContainerConfig>;
 }
 
 export interface IDockerRepository {
