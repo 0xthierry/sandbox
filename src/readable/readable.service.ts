@@ -1,39 +1,38 @@
 import fs from 'fs';
+import { Transform } from 'stream';
 import tar from 'tar';
-import path from 'path';
 import handlebars from 'handlebars';
 import GitRepository from './git.repository';
+import {
+  dockerfileSourcePath,
+  dockerfileDestinationPath,
+  projectDestination,
+} from '../utils/pathResolver';
 
 export default class ReadableService {
   async download(origin: string, image: string, folder: string): Promise<void> {
     const git = new GitRepository();
-    const dst = path.resolve(__dirname, '..', '..', '..', 'tmp', folder);
-    const dockerfileDst = path.resolve(
-      __dirname,
-      '..',
-      '..',
-      '..',
-      'tmp',
-      folder,
-      'Dockerfile'
-    );
-
-    await git.download(origin, dst);
-    const source = fs.readFileSync(
-      path.resolve(
-        __dirname,
-        '..',
-        '..',
-        'dockerfiles',
-        image,
-        'dockerfile.hbs'
+    await git.download(origin, projectDestination(folder));
+    fs.createReadStream(dockerfileSourcePath(image))
+      .pipe(
+        new Transform({
+          transform(chunk, encoding, callback): void {
+            const template = handlebars.compile(chunk.toString());
+            this.push(template({ foldername: projectDestination(folder) }));
+            callback();
+          },
+        })
       )
-    );
-    const template = handlebars.compile(source.toString());
-    fs.writeFileSync(dockerfileDst, template({ foldername: folder }));
-    // tar.c({
-    //   gzip: true,
-    //   file: `${folder}.tgz`,
-    // });
+      .pipe(fs.createWriteStream(dockerfileDestinationPath(folder)))
+      .on('finish', () => {
+        tar
+          .c(
+            {
+              gzip: true,
+            },
+            [projectDestination(folder)]
+          )
+          .pipe(fs.createWriteStream(`${projectDestination(folder)}.gz`));
+      });
   }
 }

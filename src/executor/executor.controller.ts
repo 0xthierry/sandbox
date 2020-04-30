@@ -19,20 +19,20 @@ export default class ExecutorController {
         startRequest.image,
         id
       );
-      const dockerRepository = new DockerRepository();
-      const dockerService = new DockerService(dockerRepository);
-      const containerId = await dockerService.createContainer({
-        Image: startRequest.image,
-        Cmd: startRequest.startCommand.split(' '),
-        WorkingDir: '/usr/src/app',
-        Volumes: {
-          '/usr/src/app': {},
-        },
-        HostConfig: {
-          AutoRemove: true,
-        },
-      });
-      await dockerService.startContainer(containerId);
+      //   const dockerRepository = new DockerRepository();
+      //   const dockerService = new DockerService(dockerRepository);
+      //   const containerId = await dockerService.createContainer({
+      //     Image: startRequest.image,
+      //     Cmd: startRequest.startCommand.split(' '),
+      //     WorkingDir: '/usr/src/app',
+      //     Volumes: {
+      //       '/usr/src/app': {},
+      //     },
+      //     HostConfig: {
+      //       AutoRemove: true,
+      //     },
+      //   });
+      //   await dockerService.startContainer(containerId);
     } catch (error) {
       console.error(error);
     }
