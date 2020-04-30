@@ -1,3 +1,5 @@
+import fs from 'fs';
+import FormData from 'form-data';
 import { IDockerRepository, IContainer, IContainerConfig } from './interfaces';
 import axios from '../utils/axios';
 // implements IDockerRepository
@@ -29,5 +31,21 @@ export default class DockerRepository implements IDockerRepository {
 
   async startContainer(id: string): Promise<void> {
     await axios.post(`/containers/${id}/start`);
+  }
+
+  async buildImage(
+    dockerfileContext: string,
+    file: fs.ReadStream
+  ): Promise<void> {
+    const data = new FormData();
+    data.append('file', file);
+    await axios({
+      method: 'POST',
+      url: '/build',
+      data,
+      params: {
+        dockerfile: dockerfileContext,
+      },
+    });
   }
 }
