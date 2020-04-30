@@ -46,6 +46,9 @@ export default class DockerRepository implements IDockerRepository {
       params: {
         dockerfile: dockerfileContext,
       },
+      headers: {
+        'Content-type': 'application/x-tar"',
+      },
     });
   }
 }

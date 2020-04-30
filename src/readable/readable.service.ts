@@ -21,17 +21,17 @@ export default class ReadableService {
     const template = handlebars.compile(dockerfileTemplate.toString());
     fs.writeFileSync(
       dockerfileDestinationPath(folder),
-      template({ foldername: projectDestination(folder) })
+      template({ foldername: folder })
     );
     await tar.c(
       {
         gzip: true,
         file: `${projectDestination(folder)}.tar.gz`,
+        preservePaths: true,
+        portable: true,
       },
       [projectDestination(folder)]
     );
-    //   .pipe(fs.createWriteStream();
-
     return fs.createReadStream(`${projectDestination(folder)}.tar.gz`);
   }
 

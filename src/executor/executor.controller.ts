@@ -21,7 +21,6 @@ export default class ExecutorController {
       );
       const dockerRepository = new DockerRepository();
       await dockerRepository.buildImage(dockerfileDestinationPath(id), result);
-      console.log(result);
     } catch (error) {
       console.error(error);
     }
