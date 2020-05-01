@@ -1,5 +1,7 @@
+import { readableRepository } from '../readable/mapper';
+
 export interface IExecutorStartRequest {
-  source: 'git' | 's3';
+  source: readableRepository;
   origin: string;
   startCommand: string;
   image: 'node:12';

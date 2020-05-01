@@ -2,21 +2,22 @@ import fs from 'fs';
 import tar from 'tar';
 import rimraf from 'rimraf';
 import handlebars from 'handlebars';
-import GitRepository from './git.repository';
 import {
   dockerfileSourcePath,
   dockerfileDestinationPath,
   projectDestination,
 } from '../utils/pathResolver';
+import MapperReadable, { readableRepository } from './mapper';
 
 export default class ReadableService {
   async download(
+    source: readableRepository,
     origin: string,
     image: string,
     folder: string
   ): Promise<fs.ReadStream> {
-    const git = new GitRepository();
-    await git.download(origin, projectDestination(folder));
+    const readable = MapperReadable.mapper(source);
+    await readable.download(origin, projectDestination(folder));
     const dockerfileTemplate = fs.readFileSync(dockerfileSourcePath(image));
     const template = handlebars.compile(dockerfileTemplate.toString());
     fs.writeFileSync(

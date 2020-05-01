@@ -1,6 +1,6 @@
 import DockerService from '../docker/docker.service';
 import ReadableService from '../readable/readable.service';
-import { ILogger } from '../logger';
+import Logger from '../logger';
 import { IExecutorStartRequest } from './interfaces';
 import { dockerfileDestinationPath } from '../utils/pathResolver';
 
@@ -8,7 +8,7 @@ export default class ExecutorService {
   constructor(
     private dockerService: DockerService,
     private readableService: ReadableService,
-    private logger: ILogger
+    private logger: Logger
   ) {}
 
   async start(startRequest: IExecutorStartRequest, id: string): Promise<void> {
@@ -18,6 +18,7 @@ export default class ExecutorService {
       id,
     });
     const result = await this.readableService.download(
+      startRequest.source,
       startRequest.origin,
       startRequest.image,
       id
