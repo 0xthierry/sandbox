@@ -70,7 +70,7 @@ export default class ExecutorService {
     this.logger.info(`star clear fs`, {
       id,
     });
-    this.readableService.clear(id);
+    await this.readableService.clear(id);
     this.logger.info(`clear fs success`, {
       id,
     });
