@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Request, Response } from 'express';
 import uuid from 'uuid/v4';
 import ReadableService from '../readable/readable.service';
@@ -37,12 +38,13 @@ export default class ExecutorController {
       logger.info(`image build start`, {
         dockerContext: dockerfileDestinationPath(id),
       });
-      await dockerRepository.buildImage(dockerfileDestinationPath(id), result);
+      await dockerService.buildImage(id, dockerfileDestinationPath(id), result);
       logger.info(`image build success`, {
         dockerContext: dockerfileDestinationPath(id),
+        imageName: id,
       });
       const dockerCreateParams = {
-        Image: startRequest.image,
+        Image: id,
         Cmd: startRequest.startCommand.split(' '),
         WorkingDir: '/usr/src/app',
         Volumes: {
@@ -75,6 +77,9 @@ export default class ExecutorController {
       logger.info(`clear fs success`, {
         id,
       });
+      logger.info(`prune images`);
+      await dockerService.pruneImage();
+      logger.info(`prune images success`);
     } catch (error) {
       logger.error('executor start', error);
     }

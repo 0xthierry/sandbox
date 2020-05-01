@@ -1,5 +1,6 @@
 import axios from 'axios';
+import config from '../config';
 
-const api = axios.create({ baseURL: 'http://localhost:5555/v1.40' });
+const api = axios.create({ baseURL: config.docker.url });
 
 export default api;

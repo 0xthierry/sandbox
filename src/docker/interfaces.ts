@@ -1,3 +1,5 @@
+import fs from 'fs';
+
 export interface IContainerHostConfig {
   CpuShares: number;
   Memory: number;
@@ -48,4 +50,10 @@ export interface IDockerRepository {
     link?: boolean
   ) => Promise<void>;
   startContainer: (id: string) => Promise<void>;
+  buildImage: (
+    name: string,
+    dockerfileContext: string,
+    file: fs.ReadStream
+  ) => Promise<void>;
+  pruneImage: () => Promise<void>;
 }

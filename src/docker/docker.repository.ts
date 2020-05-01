@@ -1,7 +1,7 @@
 import fs from 'fs';
-import FormData from 'form-data';
 import { IDockerRepository, IContainer, IContainerConfig } from './interfaces';
 import axios from '../utils/axios';
+
 // implements IDockerRepository
 export default class DockerRepository implements IDockerRepository {
   async createContainer(data: Partial<IContainerConfig>): Promise<string> {
@@ -34,6 +34,7 @@ export default class DockerRepository implements IDockerRepository {
   }
 
   async buildImage(
+    name: string,
     dockerfileContext: string,
     file: fs.ReadStream
   ): Promise<void> {
@@ -43,10 +44,15 @@ export default class DockerRepository implements IDockerRepository {
       data: file,
       params: {
         dockerfile: dockerfileContext,
+        t: name,
       },
       headers: {
         'Content-type': 'application/x-tar"',
       },
     });
+  }
+
+  async pruneImage(): Promise<void> {
+    await axios.post(`/images/prune`);
   }
 }

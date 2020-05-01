@@ -1,3 +1,4 @@
+import fs from 'fs';
 import { IDockerRepository, IContainer, IContainerConfig } from './interfaces';
 
 export default class DockerService {
@@ -19,5 +20,17 @@ export default class DockerService {
 
   async startContainer(id: string): Promise<void> {
     await this.dockerRepository.startContainer(id);
+  }
+
+  async buildImage(
+    name: string,
+    dockerfileContext: string,
+    file: fs.ReadStream
+  ): Promise<void> {
+    await this.dockerRepository.buildImage(name, dockerfileContext, file);
+  }
+
+  async pruneImage(): Promise<void> {
+    await this.dockerRepository.pruneImage();
   }
 }
