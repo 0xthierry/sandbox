@@ -2,7 +2,7 @@
 import GitRepository from './git.repository';
 import { IReadableRepository } from './interfaces';
 
-export type readableRepository = 's3' | 'git';
+export type readableRepository = 'git';
 export default class MapperRepository {
   static mapper(type: readableRepository): IReadableRepository {
     switch (type) {
