@@ -37,12 +37,10 @@ export default class DockerRepository implements IDockerRepository {
     dockerfileContext: string,
     file: fs.ReadStream
   ): Promise<void> {
-    const data = new FormData();
-    data.append('file', file);
     await axios({
       method: 'POST',
       url: '/build',
-      data,
+      data: file,
       params: {
         dockerfile: dockerfileContext,
       },
