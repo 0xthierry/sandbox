@@ -1,87 +1,115 @@
-# Project Title
+# Sandbox
 
-One Paragraph of project description goes here
+> Code executor in sandbox
 
-## Getting Started
+## Summary :memo:
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+- [Motivation](#Motivation)
+- [Architecture](#Architecture)
+- [Prerequisites](#Prerequisites)
+- [Installing](#Installing)
+- [Running](#Running)
+- [Proof of concepts](#proof-of-concepts)
+- [Next steps](#next-steps)
+- [Built With](#built-with)
+- [Contributing](#Contributing)
+- [License](#License)
+
+## Motivation :gift_heart:
+
+The goal of this project is to permit execute code from a determined source(actualy only git pr's are open) and limit time of execution, cpu consumition and memory consumition.
+
+## Architecture :hammer:
+
+It is the initial architecture and we are basically doing:
+
+- Downloading source code
+- Creating a image
+- Creating a container
+- Starting a container
+
+[Here](#next) you can see the next steps of this project and possible modifications in architecture.
+
+<p align="center">
+<img src="https://i.ibb.co/xGMWw7X/initialarchitecture.png" 
+    alt="Application architecture"
+/>
+</p>
+
+## Getting Started :computer:
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+You need to have [Docker](https://docs.docker.com/get-docker/) and [NodeJS](https://nodejs.org/en/download/) already installed to follow the nexts steps.
 
-```
-Give examples
-```
+Your docker must be able to recive requests. [Here](https://nodejs.org/en/download/) you can see how to enable it.
 
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
+Cloning project
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+```bash
+git clone https://github.com/thierrysantos/sandbox.git
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Installing project depencies
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+```bash
+yarn
+# or 
+npm install
 ```
 
-### And coding style tests
+Start project
 
-Explain what these tests test and why
-
+```bash
+yarn start:dev
+# or
+npm run start:dev
 ```
-Give an example
-```
 
-## Deployment
+## Proof of concepts :clipboard: 
 
-Add additional notes about how to deploy this on a live system
+- Executing NodeJS code - [Executing NodeJS code](https://github.com/thierrysantos/sandbox-example)
 
-## Built With
+## Next steps :snowboarder:
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+- [ ] Add a test suit to project
+- [ ] Dockerize project
+- [ ] Improve error handling
+- [ ] Add state management (This feature will help us to launch another instance of the api and continue from x step)
+- [ ] Use Dockerfile from source code if already exists in project
+- [ ] Add support to run another commands in build image
+- [ ] Add support to run other languages
+- [ ] Add a supervisor to clear the enviroment(containers, images...)
+- [ ] Add a support to stop and remove a containers after x running time
+- [ ] Add a support to limit memory consumition
+- [ ] Add a support to limit cpu consumition
+- [ ] Add a support to environment variables
+- [ ] Add a support to get the result from container execution
+- [ ] Learn possible of migration to kubernetes
+- [ ] Add github actions
 
-## Contributing
+## Built With :gem:
 
+* [Typescript](https://www.typescriptlang.org/) - TypeScript is a typed superset of JavaScript that compiles to plain JavaScript
+* [Docker REST API](https://docs.docker.com/engine/api/v1.40/) - Docker REST API
+
+## Contributing :sparkling_heart:
+ 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
+ 
+## Authors :pencil2:
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+* **Thierry Santos** - *Initial work* - [Thierry Santos](https://github.com/thierrysantos)
 
-## Authors
+See also the list of [contributors](https://github.com/thierrysantos/sandbox/contributors) who participated in this project.
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
+## License :newspaper:
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
