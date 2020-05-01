@@ -8,7 +8,6 @@
 - [Architecture](#Architecture)
 - [Prerequisites](#Prerequisites)
 - [Installing](#Installing)
-- [Running](#Running)
 - [Proof of concepts](#proof-of-concepts)
 - [Next steps](#next-steps)
 - [Built With](#built-with)
