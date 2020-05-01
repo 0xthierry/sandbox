@@ -43,7 +43,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 You need to have [Docker](https://docs.docker.com/get-docker/) and [NodeJS](https://nodejs.org/en/download/) already installed to follow the nexts steps.
 
-Your docker must be able to recive requests. [Here](https://nodejs.org/en/download/) you can see how to enable it.
+Your Docker must be able to recive requests. [Here](https://docs.docker.com/engine/install/linux-postinstall/#configuring-remote-access-with-systemd-unit-file) you can see how to enable it.
 
 ### Installing
 
