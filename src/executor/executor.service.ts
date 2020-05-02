@@ -55,6 +55,7 @@ export default class ExecutorService {
       HostConfig: {
         AutoRemove: true,
       },
+      Tty: true,
     };
     this.logger.info(`create container start`, {
       params: { ...dockerCreateParams },

@@ -15,9 +15,9 @@ export interface IContainerHostConfig {
 
 export interface IContainerConfig {
   ExposedPorts: Record<string, {}>;
-  Tty: false;
-  OpenStdin: false;
-  StdinOnce: false;
+  Tty: boolean;
+  OpenStdin: boolean;
+  StdinOnce: boolean;
   Env: string[];
   Cmd: string[];
   Image: string;
@@ -33,7 +33,7 @@ export interface IContainer {
   State: {
     Status: string;
     Running: boolean;
-    Paused: false;
+    Paused: boolean;
     StartedAt: string;
     FinishedAt: string;
   };
