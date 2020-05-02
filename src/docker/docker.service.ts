@@ -15,7 +15,7 @@ export default class DockerService {
   }
 
   async deleteContainer(id: string): Promise<void> {
-    await this.dockerRepository.deleteContainer(`/containers/${id}`);
+    await this.dockerRepository.deleteContainer(id);
   }
 
   async startContainer(id: string): Promise<void> {
