@@ -16,7 +16,7 @@
 
 ## Motivation :gift_heart:
 
-The goal of this project is to permit execute code from a determined source(actualy only git pr's are open) and limit time of execution, cpu consumition and memory consumition.
+The goal of this project is to permit execute code from a determined source(actualy only git pr's are open) and limit time of execution, cpu consumption and memory consumption.
 
 ## Architecture :hammer:
 
@@ -43,7 +43,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 You need to have [Docker](https://docs.docker.com/get-docker/) and [NodeJS](https://nodejs.org/en/download/) already installed to follow the nexts steps.
 
-Your Docker must be able to recive requests. [Here](https://docs.docker.com/engine/install/linux-postinstall/#configuring-remote-access-with-systemd-unit-file) you can see how to enable it.
+Your Docker must be able to receive requests. [Here](https://docs.docker.com/engine/install/linux-postinstall/#configuring-remote-access-with-systemd-unit-file) you can see how to enable it.
 
 ### Installing
 
@@ -86,8 +86,8 @@ npm run start:dev
 - [ ] Add support to run other languages
 - [ ] Add a supervisor to clear the enviroment(containers, images...)
 - [ ] Add a support to stop and remove a containers after x running time
-- [ ] Add a support to limit memory consumition
-- [ ] Add a support to limit cpu consumition
+- [ ] Add a support to limit memory consumption
+- [ ] Add a support to limit cpu consumption
 - [ ] Add a support to environment variables
 - [ ] Add a support to get the result from container execution
 - [ ] Learn possible of migration to kubernetes
