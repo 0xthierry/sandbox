@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-console */
 import { Request, Response } from 'express';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 import { IExecutorStartRequest } from './interfaces';
 import Logger from '../logger';
 import ExecutorService from './executor.service';
