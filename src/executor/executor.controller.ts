@@ -29,6 +29,8 @@ export default class ExecutorController {
       await this.executorService.start(startRequest, id);
       this.logger.info('start executor service success', { id });
     } catch (error) {
+      console.log({ ...error });
+      console.log(error);
       this.logger.error('executor start', error);
     }
     console.timeEnd('process time');

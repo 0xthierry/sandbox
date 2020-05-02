@@ -22,3 +22,6 @@ export function dockerfileIgnoreDestinationPath(folder: string): string {
 export function projectDestination(folder: string): string {
   return path.resolve(__dirname, '..', '..', '..', 'tmp', folder);
 }
+export function containerOuput(name: string): string {
+  return `${path.resolve(__dirname, '..', '..', '..', 'tmp', name)}.json`;
+}

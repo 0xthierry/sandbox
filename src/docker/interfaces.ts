@@ -1,4 +1,5 @@
 import fs from 'fs';
+import stream from 'stream';
 
 export interface IContainerHostConfig {
   CpuShares: number;
@@ -56,4 +57,5 @@ export interface IDockerRepository {
     file: fs.ReadStream
   ) => Promise<void>;
   pruneImage: () => Promise<void>;
+  attachContainer: (id: string, writable: stream.Writable) => Promise<void>;
 }
