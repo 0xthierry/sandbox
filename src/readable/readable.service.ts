@@ -5,7 +5,7 @@ import handlebars from 'handlebars';
 import {
   dockerfileSourcePath,
   dockerfileDestinationPath,
-  dockerfileIgnoreDestinationPath,
+  fileDestinationPath,
   projectDestination,
 } from '../utils/pathResolver';
 import MapperReadable, { readableRepository } from './mapper';
@@ -19,9 +19,10 @@ export default class ReadableService {
   ): Promise<fs.ReadStream> {
     const readable = MapperReadable.mapper(source);
     await readable.download(origin, projectDestination(folder));
-    const [dockerignore, dockerfile] = await Promise.all([
+    const [dockerignore, dockerfile, npmrc] = await Promise.all([
       fs.promises.readFile(dockerfileSourcePath(image, '.dockerignore')),
       fs.promises.readFile(dockerfileSourcePath(image, 'dockerfile.hbs')),
+      fs.promises.readFile(dockerfileSourcePath(image, '.npmrc')),
     ]);
     const dockerfileTemplate = handlebars.compile(dockerfile.toString());
     await Promise.all([
@@ -30,9 +31,10 @@ export default class ReadableService {
         dockerfileTemplate({ foldername: projectDestination(folder) })
       ),
       fs.promises.writeFile(
-        dockerfileIgnoreDestinationPath(folder),
+        fileDestinationPath(folder, '.dockerignore'),
         dockerignore.toString()
       ),
+      fs.promises.writeFile(fileDestinationPath(folder, '.npmrc'), npmrc),
     ]);
     await tar.c(
       {
