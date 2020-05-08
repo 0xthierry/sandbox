@@ -1,4 +1,5 @@
 import fs from 'fs';
+import stream from 'stream';
 import { IDockerRepository, IContainer, IContainerConfig } from './interfaces';
 
 export default class DockerService {
@@ -20,6 +21,10 @@ export default class DockerService {
 
   async startContainer(id: string): Promise<void> {
     await this.dockerRepository.startContainer(id);
+  }
+
+  async attachContainer(id: string, writable: stream.Writable): Promise<void> {
+    await this.dockerRepository.attachContainer(id, writable);
   }
 
   async buildImage(

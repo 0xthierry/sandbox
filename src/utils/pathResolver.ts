@@ -8,17 +8,12 @@ export function dockerfileSourcePath(folder: string, file: string): string {
 export function dockerfileDestinationPath(folder: string): string {
   return path.resolve(__dirname, '..', '..', '..', 'tmp', folder, 'Dockerfile');
 }
-export function dockerfileIgnoreDestinationPath(folder: string): string {
-  return path.resolve(
-    __dirname,
-    '..',
-    '..',
-    '..',
-    'tmp',
-    folder,
-    '.dockerignore'
-  );
+export function fileDestinationPath(folder: string, name: string): string {
+  return path.resolve(__dirname, '..', '..', '..', 'tmp', folder, name);
 }
 export function projectDestination(folder: string): string {
   return path.resolve(__dirname, '..', '..', '..', 'tmp', folder);
+}
+export function containerOuput(name: string): string {
+  return `${path.resolve(__dirname, '..', '..', '..', 'tmp', name)}.json`;
 }

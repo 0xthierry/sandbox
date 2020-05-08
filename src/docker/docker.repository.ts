@@ -1,4 +1,5 @@
 import fs from 'fs';
+import stream from 'stream';
 import { IDockerRepository, IContainer, IContainerConfig } from './interfaces';
 import axios from '../utils/axios';
 
@@ -31,6 +32,19 @@ export default class DockerRepository implements IDockerRepository {
 
   async startContainer(id: string): Promise<void> {
     await axios.post(`/containers/${id}/start`);
+  }
+
+  async attachContainer(id: string, writable: stream.Writable): Promise<void> {
+    const response = await axios({
+      url: `/containers/${id}/attach`,
+      method: 'POST',
+      params: {
+        stream: true,
+        stdout: true,
+      },
+      responseType: 'stream',
+    });
+    response.data.pipe(writable);
   }
 
   async buildImage(

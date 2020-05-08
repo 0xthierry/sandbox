@@ -1,4 +1,5 @@
 import fs from 'fs';
+import stream from 'stream';
 
 export interface IContainerHostConfig {
   CpuShares: number;
@@ -14,9 +15,9 @@ export interface IContainerHostConfig {
 
 export interface IContainerConfig {
   ExposedPorts: Record<string, {}>;
-  Tty: false;
-  OpenStdin: false;
-  StdinOnce: false;
+  Tty: boolean;
+  OpenStdin: boolean;
+  StdinOnce: boolean;
   Env: string[];
   Cmd: string[];
   Image: string;
@@ -32,7 +33,7 @@ export interface IContainer {
   State: {
     Status: string;
     Running: boolean;
-    Paused: false;
+    Paused: boolean;
     StartedAt: string;
     FinishedAt: string;
   };
@@ -56,4 +57,5 @@ export interface IDockerRepository {
     file: fs.ReadStream
   ) => Promise<void>;
   pruneImage: () => Promise<void>;
+  attachContainer: (id: string, writable: stream.Writable) => Promise<void>;
 }

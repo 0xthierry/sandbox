@@ -1,8 +1,13 @@
+import fs from 'fs';
+import stream from 'stream';
 import DockerService from '../docker/docker.service';
 import ReadableService from '../readable/readable.service';
 import Logger from '../logger';
 import { IExecutorStartRequest } from './interfaces';
-import { dockerfileDestinationPath } from '../utils/pathResolver';
+import {
+  dockerfileDestinationPath,
+  containerOuput,
+} from '../utils/pathResolver';
 
 export default class ExecutorService {
   constructor(
@@ -50,6 +55,7 @@ export default class ExecutorService {
       HostConfig: {
         AutoRemove: true,
       },
+      Tty: true,
     };
     this.logger.info(`create container start`, {
       params: { ...dockerCreateParams },
@@ -67,6 +73,10 @@ export default class ExecutorService {
     this.logger.info(`star container success`, {
       containerId,
     });
+    await this.dockerService.attachContainer(
+      containerId,
+      fs.createWriteStream(containerOuput(id))
+    );
     this.logger.info(`star clear fs`, {
       id,
     });
