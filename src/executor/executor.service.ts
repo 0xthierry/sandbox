@@ -13,7 +13,7 @@ export default class ExecutorService {
   constructor(
     private dockerService: DockerService,
     private readableService: ReadableService,
-    private logger: Logger
+    private logger: Logger,
   ) {}
 
   async start(startRequest: IExecutorStartRequest, id: string): Promise<void> {
@@ -26,7 +26,7 @@ export default class ExecutorService {
       startRequest.source,
       startRequest.origin,
       startRequest.image,
-      id
+      id,
     );
     this.logger.info(`download finished`, {
       origin: startRequest.origin,
@@ -39,7 +39,7 @@ export default class ExecutorService {
     await this.dockerService.buildImage(
       id,
       dockerfileDestinationPath(id),
-      result
+      result,
     );
     this.logger.info(`image build success`, {
       dockerContext: dockerfileDestinationPath(id),
@@ -61,7 +61,7 @@ export default class ExecutorService {
       params: { ...dockerCreateParams },
     });
     const containerId = await this.dockerService.createContainer(
-      dockerCreateParams
+      dockerCreateParams,
     );
     this.logger.info(`create container success`, {
       containerId,
@@ -75,7 +75,7 @@ export default class ExecutorService {
     });
     await this.dockerService.attachContainer(
       containerId,
-      fs.createWriteStream(containerOuput(id))
+      fs.createWriteStream(containerOuput(id)),
     );
     this.logger.info(`star clear fs`, {
       id,
