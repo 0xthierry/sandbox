@@ -1,4 +1,4 @@
-import config from './config';
+import appConfig from './config/app';
 import app from './app';
 
-app().listen(config.api.port);
+app().listen(appConfig.api.port);

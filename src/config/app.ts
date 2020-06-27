@@ -2,6 +2,7 @@
 import dotenv from 'dotenv';
 
 dotenv.config();
+
 export interface IAppConfig {
   api: {
     port: number;
@@ -12,6 +13,7 @@ export interface IAppConfig {
 }
 
 const PORT = process.env.PORT || '3001';
+
 const config: IAppConfig = {
   api: {
     port: parseInt(PORT, 10),
@@ -20,4 +22,5 @@ const config: IAppConfig = {
     url: process.env.DOCKER_API || '',
   },
 };
+
 export default config;
